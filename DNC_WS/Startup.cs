@@ -28,14 +28,8 @@ namespace DNC_WS
                 app.UseDeveloperExceptionPage();
             }
 
-            // core pipline 1
-            app.Use(async (context, next) =>
-            {
-                context.Response.ContentType = "text/html";
-                await context.Response.WriteAsync("Eins rein</br>");
-                await next();
-                await context.Response.WriteAsync("Eins raus</br>");
-            });
+            // core pipline 1 extern mdw
+            app.UseMiddleware<ReinRausMiddleware>();
 
             // core pipline 2
             app.Use(async (context, next) =>
