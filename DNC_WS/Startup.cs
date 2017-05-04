@@ -28,9 +28,27 @@ namespace DNC_WS
                 app.UseDeveloperExceptionPage();
             }
 
+            // core pipline 1
+            app.Use(async (context, next) =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.WriteAsync("Eins rein</br>");
+                await next();
+                await context.Response.WriteAsync("Eins raus</br>");
+            });
+
+            // core pipline 2
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Zwei rein</br>");
+                await next();
+                await context.Response.WriteAsync("Zwei  raus</br>");
+            });
+
+            // run real app
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Hage Gage!</br>");
             });
         }
     }
