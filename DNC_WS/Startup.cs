@@ -35,8 +35,11 @@ namespace DNC_WS
         {
             // add serices here -- auth - id ,,,,
             services.AddOptions();
+
+            services.Configure<ReinRausOptions>(Configuration.GetSection("ReinRaus"));
+
             services.AddReinRaus(options => {
-                options.Nummer = Configuration["ReinRaus:Nummer"];
+               // options.Nummer = Configuration["ReinRaus:Nummer"];
                 });
         }
 
