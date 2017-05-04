@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,19 @@ namespace DNC_WS
     {
         private readonly RequestDelegate _next;
 
-        public ReinRausMiddleware(RequestDelegate next)
+        private string _number;
+
+        public ReinRausMiddleware(RequestDelegate next, IOptions<ReinRausOptions> options)
         {
             _next = next;
+            _number = options.Value.Nummer;
         }
         public async Task Invoke(HttpContext context)
         {
             context.Response.ContentType = "text/html";
-            await context.Response.WriteAsync("Eins rein</br>");
+            await context.Response.WriteAsync($"{_number} rein</br>");
             await _next(context);
-            await context.Response.WriteAsync("Eins raus</br>");
+            await context.Response.WriteAsync($"{_number} raus</br>");
         }
     }
 }

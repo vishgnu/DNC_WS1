@@ -16,6 +16,11 @@ namespace DNC_WS
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // add serices here -- auth - id ,,,,
+            services.AddOptions();
+            services.AddReinRaus(options => {
+                options.Nummer = "Drei";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,13 +36,13 @@ namespace DNC_WS
             // core pipline 1 extern mdw
             app.UseMiddleware<ReinRausMiddleware>();
 
-            // core pipline 2
-            app.Use(async (context, next) =>
-            {
-                await context.Response.WriteAsync("Zwei rein</br>");
-                await next();
-                await context.Response.WriteAsync("Zwei  raus</br>");
-            });
+            //core pipline 2
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Zwei rein</br>");
+            //    await next();
+            //    await context.Response.WriteAsync("Zwei  raus</br>");
+            //});
 
             // run real app
             app.Run(async (context) =>
