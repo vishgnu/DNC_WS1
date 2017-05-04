@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using DNC_WS.EmptyApp;
 
 namespace DNC_WS
 {
@@ -37,6 +38,12 @@ namespace DNC_WS
             services.AddOptions();
 
             services.Configure<ReinRausOptions>(Configuration.GetSection("ReinRaus"));
+
+            // add service to DI container
+            // scoped => ef, orm mapper
+            // transient => immer neu
+            // singleton....
+            services.AddScoped<WaitService>();
 
             services.AddReinRaus(options => {
                // options.Nummer = Configuration["ReinRaus:Nummer"];

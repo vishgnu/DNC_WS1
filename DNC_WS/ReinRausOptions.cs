@@ -8,5 +8,6 @@ namespace DNC_WS
     public class ReinRausOptions
     {
         public string Nummer { get; set; }
+        public int WaitTime { get; set; } = 0;
     }
 }
